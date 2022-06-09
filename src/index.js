@@ -1,11 +1,29 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
-import './index.css'
-import App from './App'
-import { ProductsProvider } from './context/products_context'
-import { FilterProvider } from './context/filter_context'
-import { CartProvider } from './context/cart_context'
-import { UserProvider } from './context/user_context'
-import { Auth0Provider } from '@auth0/auth0-react'
+import React from "react";
+import ReactDOM from "react-dom";
+import "./index.css";
+import App from "./App";
+import { ProductsProvider } from "./context/products_context";
+import { FilterProvider } from "./context/filter_context";
+import { CartProvider } from "./context/cart_context";
+import { UserProvider } from "./context/user_context";
+import { Auth0Provider } from "@auth0/auth0-react";
 
-ReactDOM.render(<App />, document.getElementById('root'))
+ReactDOM.render(
+  <Auth0Provider
+    domain="dev-lcrl4l3n.us.auth0.com"
+    clientId="nLarGD4d43FyOeo7MGa6mBcXWivvk9zT"
+    redirectUri={window.location.origin}
+    cacheLocation="localstorage"
+  >
+    <UserProvider>
+      <ProductsProvider>
+        <FilterProvider>
+          <CartProvider>
+            <App />
+          </CartProvider>
+        </FilterProvider>
+      </ProductsProvider>
+    </UserProvider>
+  </Auth0Provider>,
+  document.getElementById("root")
+);

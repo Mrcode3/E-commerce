@@ -1,16 +1,50 @@
-import React from 'react'
-import styled from 'styled-components'
-import logo from '../assets/logo.svg'
-import { FaBars } from 'react-icons/fa'
-import { Link } from 'react-router-dom'
-import { links } from '../utils/constants'
-import CartButtons from './CartButtons'
-import { useProductsContext } from '../context/products_context'
-import { useUserContext } from '../context/user_context'
+import React from "react";
+import styled from "styled-components";
+import logo from "../assets/logo.svg";
+import { FaBars } from "react-icons/fa";
+import { Link } from "react-router-dom";
+import { links } from "../utils/constants";
+import CartButtons from "./CartButtons";
+import { useProductsContext } from "../context/products_context";
+import { useUserContext } from "../context/user_context";
 
 const Nav = () => {
-  return <h4>navbar</h4>
-}
+  const { openSidebar } = useProductsContext();
+  const { myUser } = useUserContext();
+
+  return (
+    <NavContainer>
+      <div className="nav-center">
+        <div className="nav-header">
+          <Link to="/">
+            <img src={logo} alt="logo" />
+          </Link>
+          <button type="button" className="nav-toggle" onClick={openSidebar}>
+            <FaBars />
+          </button>
+        </div>
+        <ul className="nav-links">
+          {links.map((link) => {
+            const { id, text, url } = link;
+            return (
+              <li key={id}>
+                <Link to={url}>{text}</Link>
+              </li>
+            );
+          })}
+          {myUser && (
+            <li>
+              <Link to="checkout" className="gradient-border">
+                checkout
+              </Link>
+            </li>
+          )}
+        </ul>
+        <CartButtons />
+      </div>
+    </NavContainer>
+  );
+};
 
 const NavContainer = styled.nav`
   height: 5rem;
@@ -47,6 +81,7 @@ const NavContainer = styled.nav`
   .cart-btn-wrapper {
     display: none;
   }
+
   @media (min-width: 992px) {
     .nav-toggle {
       display: none;
@@ -74,9 +109,53 @@ const NavContainer = styled.nav`
       }
     }
     .cart-btn-wrapper {
-      display: grid;
+      display: flex;
+    }
+    .gradient-border {
+      --border-width: 3px;
+
+      position: relative;
+      width: 60px;
+      height: 25px;
+      font-family: Lato, sans-serif;
+      font-size: 2.5rem;
+      text-transform: uppercase;
+      color: white;
+      /* background: #222; */
+      /* border-radius: var(--border-width); */
+
+      &::after {
+        position: absolute;
+        content: "";
+        top: calc(-1 * var(--border-width));
+        left: calc(-1 * var(--border-width));
+        z-index: -1;
+        width: calc(100% + var(--border-width) * 2);
+        height: calc(100% + var(--border-width) * 2);
+        background: linear-gradient(
+          60deg,
+          hsl(224, 85%, 66%),
+          hsl(269, 85%, 66%),
+          hsl(314, 85%, 66%),
+          hsl(359, 85%, 66%),
+          hsl(44, 85%, 66%),
+          hsl(89, 85%, 66%),
+          hsl(134, 85%, 66%),
+          hsl(179, 85%, 66%)
+        );
+        background-size: 300% 300%;
+        background-position: 0 50%;
+        border-radius: calc(2 * var(--border-width));
+        animation: moveGradient 4s alternate infinite;
+      }
+    }
+
+    @keyframes moveGradient {
+      50% {
+        background-position: 100% 50%;
+      }
     }
   }
-`
+`;
 
-export default Nav
+export default Nav;
