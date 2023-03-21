@@ -9,13 +9,14 @@ const Hero = () => {
     <Wrapper className="section-center">
       <div className="content">
         <h1>
-          design your <br />
-          comfort zone
+          Furnishing made <br />
+          easy
         </h1>
         <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam nostrum
-          ipsum aspernatur voluptatem aliquam ut et quas, odit similique, quod
-          rerum nihil rem quis aut ea! Exercitationem incidunt fugit error.
+          FurniMart is your ultimate destination for all your furnishing needs.
+          With a vast collection of furniture pieces ranging from traditional to
+          modern styles, FurniMart offers quality and affordability in one
+          place.
         </p>
         <Link to="/products" className="btn hero-btn">
           show now
