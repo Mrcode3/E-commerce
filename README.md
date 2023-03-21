@@ -135,6 +135,3 @@ exports.handler = async (event, context, cb) => {
 ```
 
 - restart the server "npm run dev"
-- visit
-- [Products](http://localhost:8888/.netlify/functions/products)
-- [Single Product](http://localhost:8888/.netlify/functions/single-product)
